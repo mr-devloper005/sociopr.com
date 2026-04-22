@@ -6,9 +6,12 @@ export const revalidate = 3
 
 export async function generateStaticParams() {
   const posts = await fetchTaskPosts('mediaDistribution', 50)
-  if (!posts.length) return [{ slug: 'placeholder' }]
+  if (!posts.length) return []
   return posts.map((post) => ({ slug: post.slug }))
 }
+
+/** Allow slugs not returned from generateStaticParams (on-demand ISR). */
+export const dynamicParams = true
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params

@@ -1,10 +1,10 @@
 export const siteIdentity = {
   code: process.env.NEXT_PUBLIC_SITE_CODE || 'w0ahzm2vmx',
-  name: process.env.NEXT_PUBLIC_SITE_NAME || 'Socio PR',
-  tagline: process.env.NEXT_PUBLIC_SITE_TAGLINE || 'Independent media updates',
+  name: process.env.NEXT_PUBLIC_SITE_NAME || 'SocioPR.com',
+  tagline: process.env.NEXT_PUBLIC_SITE_TAGLINE || 'Global press distribution for modern teams',
   description:
     process.env.NEXT_PUBLIC_SITE_DESCRIPTION ||
-    'A simple newsroom-style publication for announcements, coverage, and media updates on Socio PR.',
+    'SocioPR.com is a media desk for distributing press releases, company news, and investor-ready announcements with a clean, wire-style reading experience.',
   domain: process.env.NEXT_PUBLIC_SITE_DOMAIN || 'sociopr.com',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://sociopr.com',
   ogImage: process.env.NEXT_PUBLIC_SITE_OG_IMAGE || '/og-default.png',
