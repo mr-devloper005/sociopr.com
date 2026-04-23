@@ -1,7 +1,7 @@
 import { ContentImage } from "@/components/shared/content-image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { MapPin, Globe, Phone, Tag, Mail } from "lucide-react";
+import { Linkedin, MapPin, Globe, Phone, Tag, Mail, Share2 } from "lucide-react";
 import { NavbarShell } from "@/components/shared/navbar-shell";
 import { Footer } from "@/components/shared/footer";
 import { TaskPostCard } from "@/components/shared/task-post-card";
@@ -142,11 +142,11 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
 
   const content = getContent(post);
   const isClassified = task === "classified";
-  const isArticle = task === "article";
+  const isArticleLayout = task === "article" || task === "mediaDistribution";
   const category = content.category || post.tags?.[0] || taskConfig?.label || task;
   const description = content.description || post.summary || "Details coming soon.";
-  const descriptionHtml = !isArticle ? formatRichHtml(description, "Details coming soon.") : "";
-  const articleHtml = isArticle ? formatArticleHtml(content, post) : "";
+  const descriptionHtml = !isArticleLayout ? formatRichHtml(description, "Details coming soon.") : "";
+  const articleHtml = isArticleLayout ? formatArticleHtml(content, post) : "";
   const articleSummary =
     post.summary ||
     (typeof content.excerpt === "string" ? content.excerpt : "") ||
@@ -167,7 +167,7 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
   const images = getImageUrls(post, content);
   const mapEmbedUrl = buildMapEmbedUrl(content.latitude, content.longitude, location);
   const isBookmark = task === "sbm" || task === "social";
-  const hideSidebar = isClassified || isArticle || task === "image" || isBookmark;
+  const hideSidebar = isClassified || isArticleLayout || task === "image" || isBookmark;
   const related = (await fetchTaskPosts(task, 6))
     .filter((item) => item.slug !== post.slug)
     .filter((item) => {
@@ -178,7 +178,7 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
     .slice(0, 3);
   const articleUrl = `${SITE_CONFIG.baseUrl.replace(/\/$/, "")}${taskConfig?.route || "/articles"}/${post.slug}`;
   const articleImage = absoluteUrl(images[0]) || absoluteUrl(SITE_CONFIG.defaultOgImage);
-  const articleSchema = isArticle
+  const articleSchema = isArticleLayout
     ? {
         "@context": "https://schema.org",
         "@type": "Article",
@@ -226,6 +226,10 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
   const schemaPayload = articleSchema ? [articleSchema, breadcrumbSchema] : breadcrumbSchema;
   const { recipe } = getFactoryState();
   const productKind = getProductKind(recipe);
+  const shareUrl = encodeURIComponent(articleUrl);
+  const shareTitle = encodeURIComponent(post.title);
+  const relatedHeading =
+    task === "mediaDistribution" ? "Related releases" : `More in ${category}`;
 
   if (productKind === "directory" && (task === "listing" || task === "classified" || task === "profile")) {
     return (
@@ -266,13 +270,19 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
           )}
         >
           <div className={cn(isClassified ? "space-y-8" : "")}>
-            {isArticle ? (
+            {isArticleLayout ? (
               <div className="mx-auto w-full max-w-4xl space-y-6">
-                <h1 className="text-4xl font-semibold leading-tight text-foreground">
+                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-muted-foreground">
+                  {task === "mediaDistribution" ? "Press release" : "Article"}
+                </p>
+                <h1 className="font-[family-name:var(--font-display)] text-4xl font-semibold leading-[1.1] tracking-[-0.03em] text-foreground sm:text-[2.75rem]">
                   {post.title}
                 </h1>
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
-                  <span>By {articleAuthor}</span>
+                {articleSummary ? (
+                  <p className="text-lg leading-relaxed text-muted-foreground sm:text-xl">{articleSummary}</p>
+                ) : null}
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-border pb-6 text-sm text-muted-foreground">
+                  <span className="font-medium text-foreground">By {articleAuthor}</span>
                   {articleDate ? <span>{articleDate}</span> : null}
                   <Badge variant="secondary" className="inline-flex items-center gap-1">
                     <Tag className="h-3.5 w-3.5" />
@@ -288,11 +298,8 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
                     ))}
                   </div>
                 ) : null}
-                {articleSummary ? (
-                  <p className="text-base leading-7 text-muted-foreground">{articleSummary}</p>
-                ) : null}
                 {images[0] ? (
-                  <div className="relative aspect-[16/9] w-full overflow-hidden rounded-3xl border border-border bg-muted">
+                  <div className="relative aspect-[16/9] w-full overflow-hidden rounded-3xl border border-border bg-muted shadow-[0_24px_70px_rgba(47,32,24,0.1)]">
                     <ContentImage
                       src={images[0]}
                       alt={`${post.title} featured image`}
@@ -303,12 +310,49 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
                     />
                   </div>
                 ) : null}
-                <RichContent html={articleHtml} className="leading-8 prose-p:my-6 prose-h2:my-8 prose-h3:my-6 prose-ul:my-6" />
+                <RichContent
+                  html={articleHtml}
+                  className="article-content leading-8 prose-p:my-6 prose-h2:my-8 prose-h3:my-6 prose-ul:my-6"
+                />
+                <div className="flex flex-col gap-3 border-t border-border pt-8 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
+                    <Share2 className="h-4 w-4 text-primary" aria-hidden />
+                    Share this release
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    <Button variant="outline" size="sm" asChild className="rounded-full">
+                      <a
+                        href={`https://twitter.com/intent/tweet?url=${shareUrl}&text=${shareTitle}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        X / Twitter
+                      </a>
+                    </Button>
+                    <Button variant="outline" size="sm" asChild className="rounded-full">
+                      <a
+                        href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Linkedin className="mr-1 h-3.5 w-3.5" aria-hidden />
+                        LinkedIn
+                      </a>
+                    </Button>
+                    <Button variant="outline" size="sm" asChild className="rounded-full">
+                      <a
+                        href={`mailto:?subject=${shareTitle}&body=${encodeURIComponent(`${post.title}\n\n${articleUrl}`)}`}
+                      >
+                        Email
+                      </a>
+                    </Button>
+                  </div>
+                </div>
                 <ArticleComments slug={post.slug} />
               </div>
             ) : null}
 
-            {!isArticle ? (
+            {!isArticleLayout ? (
               <>
                 {!isBookmark ? (
                   <div className={cn(isClassified ? "w-full" : "")}>
@@ -379,7 +423,7 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
               </div>
             ) : null}
 
-            {content.highlights?.length && !isArticle ? (
+            {content.highlights?.length && !isArticleLayout ? (
               <div className={cn("mt-8 rounded-2xl border border-border bg-card p-6", isClassified ? "mx-auto w-full max-w-4xl" : "")}>
                 <h2 className="text-lg font-semibold text-foreground">Highlights</h2>
                 <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
@@ -480,7 +524,7 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
             <>
             <div className="mb-4 flex items-center justify-between">
               <h2 className="text-xl font-semibold text-foreground">
-                More in {category}
+                {relatedHeading}
               </h2>
               {taskConfig?.route && (
                 <Link

@@ -1,21 +1,21 @@
 import { defineSiteTheme } from '@/config/site.theme.defaults'
 
 export const SITE_THEME = defineSiteTheme({
-  shell: 'directory',
+  shell: 'editorial',
   hero: {
-    variant: 'search-first',
-    eyebrow: 'Business discovery system',
+    variant: 'spotlight-split',
+    eyebrow: 'SocioPR wire',
   },
   home: {
-    layout: 'directory-stack',
-    primaryTask: 'listing',
-    featuredTaskKeys: ['listing', 'profile', 'classified'],
+    layout: 'editorial-rhythm',
+    primaryTask: 'mediaDistribution',
+    featuredTaskKeys: ['mediaDistribution', 'article'],
   },
   navigation: {
-    variant: 'compact',
+    variant: 'editorial',
   },
   footer: {
-    variant: 'columns',
+    variant: 'editorial',
   },
   cards: {
     listing: 'listing-elevated',
@@ -28,5 +28,6 @@ export const SITE_THEME = defineSiteTheme({
     social: 'studio-panel',
     org: 'catalog-grid',
     comment: 'editorial-feature',
+    mediaDistribution: 'editorial-feature',
   },
 })
