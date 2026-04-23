@@ -108,6 +108,14 @@ export function Navbar() {
   const primaryTask = SITE_CONFIG.tasks.find((task) => task.key === recipe.primaryTask && task.enabled) || primaryNavigation[0]
   const isDirectoryProduct = recipe.homeLayout === 'listing-home' || recipe.homeLayout === 'classified-home'
 
+  const marketingLinks =
+    'marketingLinks' in siteContent.navbar && Array.isArray(siteContent.navbar.marketingLinks)
+      ? siteContent.navbar.marketingLinks
+      : []
+
+  const isMarketingActive = (href: string) =>
+    href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(`${href}/`)
+
   if (isDirectoryProduct) {
     const palette = directoryPalette[(recipe.brandPack === 'market-utility' ? 'market-utility' : 'directory-clean') as keyof typeof directoryPalette]
 
@@ -125,7 +133,19 @@ export function Navbar() {
               </div>
             </Link>
 
-            <div className="hidden items-center gap-5 xl:flex">
+            <div className="hidden flex-wrap items-center gap-x-4 gap-y-2 md:flex lg:gap-x-5">
+              {marketingLinks.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={cn(
+                    'text-xs font-semibold uppercase tracking-[0.14em] transition-colors sm:text-sm',
+                    isMarketingActive(item.href) ? 'text-foreground' : palette.nav
+                  )}
+                >
+                  {item.label}
+                </Link>
+              ))}
               {primaryNavigation.slice(0, 4).map((task) => {
                 const isActive = pathname.startsWith(task.route)
                 return (
@@ -185,6 +205,22 @@ export function Navbar() {
                 <Search className="h-4 w-4" />
                 Find businesses, spaces, and services
               </div>
+              {marketingLinks.map((item) => {
+                const active = isMarketingActive(item.href)
+                return (
+                  <Link
+                    key={`dir-m-${item.href}`}
+                    href={item.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={cn(
+                      'flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold transition-colors',
+                      active ? 'bg-foreground text-background' : palette.post
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                )
+              })}
               {mobileNavigation.map((item) => {
                 const isActive = pathname.startsWith(item.href)
                 return (
@@ -221,8 +257,27 @@ export function Navbar() {
           </Link>
 
           {isEditorial ? (
-            <div className="hidden min-w-0 flex-1 items-center gap-4 xl:flex">
-              <div className="h-px flex-1 bg-[#d8c8bb]" />
+            <div className="hidden min-w-0 flex-1 flex-wrap items-center gap-3 md:gap-4 md:flex">
+              <div className="hidden h-px min-w-[2rem] flex-1 bg-[#d8c8bb] lg:block" aria-hidden />
+              {marketingLinks.length ? (
+                <div className="flex flex-wrap items-center gap-1">
+                  {marketingLinks.map((item) => {
+                    const active = isMarketingActive(item.href)
+                    return (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        className={cn(
+                          'rounded-full px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] transition',
+                          active ? 'bg-[#2f1d16] text-[#fff4e4]' : 'text-[#7b6254] hover:bg-[#f2e5d4] hover:text-[#2f1d16]'
+                        )}
+                      >
+                        {item.label}
+                      </Link>
+                    )
+                  })}
+                </div>
+              ) : null}
               {primaryNavigation.map((task) => {
                 const isActive = pathname.startsWith(task.route)
                 return (
@@ -231,10 +286,25 @@ export function Navbar() {
                   </Link>
                 )
               })}
-              <div className="h-px flex-1 bg-[#d8c8bb]" />
+              <div className="hidden h-px min-w-[2rem] flex-1 bg-[#d8c8bb] lg:block" aria-hidden />
             </div>
           ) : isFloating ? (
-            <div className="hidden min-w-0 flex-1 items-center gap-2 xl:flex">
+            <div className="hidden min-w-0 flex-1 flex-wrap items-center gap-2 md:flex">
+              {marketingLinks.map((item) => {
+                const active = isMarketingActive(item.href)
+                return (
+                  <Link
+                    key={`fl-${item.href}`}
+                    href={item.href}
+                    className={cn(
+                      'rounded-full px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] transition-colors',
+                      active ? style.active : style.idle
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                )
+              })}
               {primaryNavigation.map((task) => {
                 const Icon = taskIcons[task.key] || LayoutGrid
                 const isActive = pathname.startsWith(task.route)
@@ -247,7 +317,19 @@ export function Navbar() {
               })}
             </div>
           ) : isUtility ? (
-            <div className="hidden min-w-0 flex-1 items-center gap-2 xl:flex">
+            <div className="hidden min-w-0 flex-1 flex-wrap items-center gap-2 md:flex">
+              {marketingLinks.map((item) => {
+                const active = isMarketingActive(item.href)
+                return (
+                  <Link
+                    key={`ut-${item.href}`}
+                    href={item.href}
+                    className={cn('rounded-lg px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors', active ? style.active : style.idle)}
+                  >
+                    {item.label}
+                  </Link>
+                )
+              })}
               {primaryNavigation.map((task) => {
                 const isActive = pathname.startsWith(task.route)
                 return (
@@ -258,7 +340,22 @@ export function Navbar() {
               })}
             </div>
           ) : (
-            <div className="hidden min-w-0 flex-1 items-center gap-1 overflow-hidden xl:flex">
+            <div className="hidden min-w-0 flex-1 flex-wrap items-center gap-1 overflow-hidden md:flex">
+              {marketingLinks.map((item) => {
+                const active = isMarketingActive(item.href)
+                return (
+                  <Link
+                    key={`cp-${item.href}`}
+                    href={item.href}
+                    className={cn(
+                      'rounded-full px-2.5 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors whitespace-nowrap',
+                      active ? style.active : style.idle
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                )
+              })}
               {primaryNavigation.map((task) => {
                 const Icon = taskIcons[task.key] || LayoutGrid
                 const isActive = pathname.startsWith(task.route)
@@ -324,6 +421,24 @@ export function Navbar() {
               <Search className="h-4 w-4" />
               Search the site
             </Link>
+            {marketingLinks.length
+              ? marketingLinks.map((item) => {
+                  const active = isMarketingActive(item.href)
+                  return (
+                    <Link
+                      key={`m-${item.href}`}
+                      href={item.href}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={cn(
+                        'flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold transition-colors',
+                        active ? style.active : 'text-muted-foreground hover:bg-muted'
+                      )}
+                    >
+                      {item.label}
+                    </Link>
+                  )
+                })
+              : null}
             {mobileNavigation.map((item) => {
               const isActive = pathname.startsWith(item.href)
               return (

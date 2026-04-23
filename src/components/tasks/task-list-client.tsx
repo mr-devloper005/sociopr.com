@@ -12,9 +12,22 @@ type Props = {
   task: TaskKey;
   initialPosts: SitePost[];
   category?: string;
+  query?: string;
+  dateRange?: string;
 };
 
-export function TaskListClient({ task, initialPosts, category }: Props) {
+function withinPublishedRange(publishedAt: string | undefined, range?: string) {
+  if (!range || range === "all") return true;
+  const d = publishedAt ? new Date(publishedAt) : null;
+  if (!d || Number.isNaN(d.getTime())) return true;
+  const now = Date.now();
+  const diff = now - d.getTime();
+  if (range === "7d") return diff <= 7 * 86400000;
+  if (range === "30d") return diff <= 30 * 86400000;
+  return true;
+}
+
+export function TaskListClient({ task, initialPosts, category, query, dateRange }: Props) {
   const localPosts = getLocalPostsForTask(task);
 
   const merged = useMemo(() => {
@@ -52,17 +65,39 @@ export function TaskListClient({ task, initialPosts, category }: Props) {
     });
   }, [category, initialPosts, localPosts]);
 
-  if (!merged.length) {
+  const filtered = useMemo(() => {
+    let rows = merged;
+    const q = query?.trim().toLowerCase();
+    if (q) {
+      rows = rows.filter((post) => {
+        const hay = `${post.title || ""} ${post.summary || ""}`.toLowerCase();
+        return hay.includes(q);
+      });
+    }
+    if (dateRange && dateRange !== "all") {
+      rows = rows.filter((post) => withinPublishedRange(post.publishedAt, dateRange));
+    }
+    return rows;
+  }, [merged, query, dateRange]);
+
+  if (!filtered.length) {
     return (
-      <div className="rounded-2xl border border-dashed border-border p-10 text-center text-muted-foreground">
-        No posts yet for this section.
+      <div className="rounded-2xl border border-dashed border-border bg-muted/20 p-10 text-center text-muted-foreground">
+        {merged.length
+          ? "No releases match these filters. Try clearing search or widening the date window."
+          : "No posts yet for this section."}
       </div>
     );
   }
 
+  const gridClass =
+    task === "mediaDistribution"
+      ? "grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+      : "grid gap-6 sm:grid-cols-2 lg:grid-cols-4";
+
   return (
-    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-      {merged.map((post) => {
+    <div className={gridClass}>
+      {filtered.map((post) => {
         const localOnly = (post as any).localOnly;
         const href = localOnly
           ? `/local/${task}/${post.slug}`

@@ -44,6 +44,7 @@ export type SiteTheme = {
     social: TaskCardVariant
     org: TaskCardVariant
     comment: TaskCardVariant
+    mediaDistribution: TaskCardVariant
   }
 }
 
@@ -75,6 +76,7 @@ export const DEFAULT_SITE_THEME: SiteTheme = {
     social: 'studio-panel',
     org: 'catalog-grid',
     comment: 'editorial-feature',
+    mediaDistribution: 'editorial-feature',
   },
 }
 

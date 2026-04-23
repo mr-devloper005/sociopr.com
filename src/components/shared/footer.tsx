@@ -27,16 +27,15 @@ const footerLinks = {
   })),
   company: [
     { name: 'About', href: '/about' },
-    { name: 'Team', href: '/team' },
-    { name: 'Careers', href: '/careers' },
-    { name: 'Blog', href: '/blog' },
-    { name: 'Press', href: '/press' },
+    { name: 'Pricing', href: '/pricing' },
+    { name: 'Contact', href: '/contact' },
+    { name: 'Press room', href: '/updates' },
   ],
   resources: [
-    { name: 'Help Center', href: '/help' },
-    { name: 'Community', href: '/community' },
+    { name: 'Latest news', href: '/blog' },
+    { name: 'Search', href: '/search' },
+    { name: 'Press archive', href: '/press' },
     { name: 'Developers', href: '/developers' },
-    { name: 'Status', href: '/status' },
   ],
   legal: [
     { name: 'Privacy', href: '/privacy' },

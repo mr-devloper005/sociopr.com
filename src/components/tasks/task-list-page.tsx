@@ -40,7 +40,17 @@ const variantShells = {
   'sbm-library': 'bg-[linear-gradient(180deg,#f7f8fc_0%,#ffffff_100%)]',
 } as const
 
-export async function TaskListPage({ task, category }: { task: TaskKey; category?: string }) {
+export async function TaskListPage({
+  task,
+  category,
+  query,
+  dateRange,
+}: {
+  task: TaskKey
+  category?: string
+  query?: string
+  dateRange?: string
+}) {
   if (TASK_LIST_PAGE_OVERRIDE_ENABLED) {
     return await TaskListPageOverride({ task, category })
   }
@@ -147,7 +157,74 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
           </section>
         ) : null}
 
-        {layoutKey === 'article-editorial' || layoutKey === 'article-journal' ? (
+        {task === 'mediaDistribution' ? (
+          <section className="mb-12">
+            <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
+              <div>
+                <p className={`text-xs font-semibold uppercase tracking-[0.28em] ${ui.muted}`}>Press room</p>
+                <h1 className="mt-3 max-w-3xl font-[family-name:var(--font-display)] text-4xl font-semibold tracking-[-0.03em] text-foreground sm:text-5xl">
+                  {taskConfig?.description || 'Latest releases'}
+                </h1>
+                <p className={`mt-5 max-w-2xl text-sm leading-8 ${ui.muted}`}>
+                  Filter by topic and date window, or search headlines. Results update from your published feed—no separate index to maintain.
+                </p>
+              </div>
+              <form
+                className={`grid gap-3 rounded-[2rem] p-6 shadow-[0_18px_50px_rgba(47,32,24,0.06)] sm:grid-cols-2 ${ui.panel}`}
+                action={taskConfig?.route || '#'}
+                method="get"
+              >
+                <div className="sm:col-span-2">
+                  <label className={`text-[11px] font-semibold uppercase tracking-[0.18em] ${ui.muted}`} htmlFor="press-q">
+                    Search
+                  </label>
+                  <input
+                    id="press-q"
+                    name="q"
+                    type="search"
+                    defaultValue={query || ''}
+                    placeholder="Headline, ticker, or keyword"
+                    className={`mt-2 h-11 w-full rounded-xl px-3 text-sm ${ui.input}`}
+                  />
+                </div>
+                <div>
+                  <label className={`text-[11px] font-semibold uppercase tracking-[0.18em] ${ui.muted}`}>Category</label>
+                  <select
+                    name="category"
+                    defaultValue={normalizedCategory}
+                    className={`mt-2 h-11 w-full rounded-xl px-3 text-sm ${ui.input}`}
+                  >
+                    <option value="all">All categories</option>
+                    {CATEGORY_OPTIONS.map((item) => (
+                      <option key={item.slug} value={item.slug}>
+                        {item.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className={`text-[11px] font-semibold uppercase tracking-[0.18em] ${ui.muted}`}>Posted</label>
+                  <select
+                    name="range"
+                    defaultValue={dateRange || 'all'}
+                    className={`mt-2 h-11 w-full rounded-xl px-3 text-sm ${ui.input}`}
+                  >
+                    <option value="all">Any time</option>
+                    <option value="7d">Past 7 days</option>
+                    <option value="30d">Past 30 days</option>
+                  </select>
+                </div>
+                <div className="flex items-end sm:col-span-2">
+                  <button type="submit" className={`h-11 w-full rounded-xl text-sm font-semibold ${ui.button}`}>
+                    Apply filters
+                  </button>
+                </div>
+              </form>
+            </div>
+          </section>
+        ) : null}
+
+        {task !== 'mediaDistribution' && (layoutKey === 'article-editorial' || layoutKey === 'article-journal') ? (
           <section className="mb-12 grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
             <div>
               <p className={`text-xs uppercase tracking-[0.3em] ${ui.muted}`}>{taskConfig?.label || task}</p>
@@ -252,7 +329,13 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
           </section>
         ) : null}
 
-        <TaskListClient task={task} initialPosts={posts} category={normalizedCategory} />
+        <TaskListClient
+          task={task}
+          initialPosts={posts}
+          category={normalizedCategory}
+          query={query}
+          dateRange={dateRange}
+        />
       </main>
       <Footer />
     </div>
