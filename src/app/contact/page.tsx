@@ -1,4 +1,4 @@
-import { FileText, Mail, Megaphone, Sparkles } from 'lucide-react'
+import { Building2, FileText, Mail, Megaphone, Sparkles } from 'lucide-react'
 import { NavbarShell } from '@/components/shared/navbar-shell'
 import { Footer } from '@/components/shared/footer'
 import { ContentImage } from '@/components/shared/content-image'
@@ -55,97 +55,146 @@ export default function ContactPage() {
   const { recipe } = getFactoryState()
   const productKind = getProductKind(recipe)
   const tone = getTone(productKind)
-  const lanes =
-    productKind === 'directory'
-      ? [
-          { icon: Megaphone, title: 'Listing onboarding', body: 'Bring business profiles online with structured metadata and verification.' },
-          { icon: Mail, title: 'Partner desk', body: 'Discuss coverage, categories, and operational questions.' },
-          { icon: Sparkles, title: 'Market expansion', body: 'Request new regions or verticals for your directory program.' },
-        ]
-      : productKind === 'editorial'
-        ? [
-            { icon: FileText, title: 'Press desk', body: 'Submit releases, coordinate embargoes, and plan syndication windows with our editors.' },
-            { icon: Mail, title: 'Partnerships', body: 'Sponsorships, investor calendars, and co-branded announcement programs.' },
-            { icon: Sparkles, title: 'Product support', body: 'Formatting, multimedia embeds, and analytics questions for your newsroom stack.' },
-          ]
-        : productKind === 'visual'
-          ? [
-              { icon: Sparkles, title: 'Creator desk', body: 'Gallery launches, licensing, and visual feature requests.' },
-              { icon: Mail, title: 'Brand collaborations', body: 'Partnerships for campaigns and creator showcases.' },
-              { icon: FileText, title: 'Media kits', body: 'Request decks, specs, and usage guidelines.' },
-            ]
-          : [
-              { icon: Mail, title: 'Curation desk', body: 'Suggest collections, boards, and resource hubs.' },
-              { icon: Sparkles, title: 'Programs', body: 'Reference libraries and long-term curation projects.' },
-              { icon: FileText, title: 'Support', body: 'Help with shelves, tags, and contributor workflows.' },
-            ]
+
+  const contactInfo = [
+    {
+      title: "Email",
+      value: "contact@sociopr.com",
+      icon: Mail,
+    },
+    {
+      title: "Phone",
+      value: "+1 (555) 123-4567",
+      icon: FileText,
+    },
+    {
+      title: "Address",
+      value: "123 Business Ave, Suite 100, San Francisco, CA 94105",
+      icon: FileText,
+    },
+    {
+      title: "Hours",
+      value: "Monday - Friday: 9AM - 6PM PST",
+      icon: FileText,
+    },
+  ]
+
+  const services = [
+    {
+      title: "Business Listings",
+      description: "Get your business listed and discovered by local customers",
+      icon: Building2,
+    },
+    {
+      title: "Partnerships",
+      description: "Explore partnership opportunities and collaborations",
+      icon: Sparkles,
+    },
+    {
+      title: "Support",
+      description: "Get help with your account and technical issues",
+      icon: FileText,
+    },
+  ]
 
   return (
     <div className={`min-h-screen ${tone.shell}`}>
       <NavbarShell />
       <main className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-        <section className="grid gap-10 lg:grid-cols-[1fr_0.95fr] lg:items-start">
+        {/* Header Section */}
+        <section className="text-center mb-16">
+          <h1 className="text-5xl font-bold tracking-tight mb-4">Contact us</h1>
+          <p className={`text-xl max-w-3xl mx-auto ${tone.muted}`}>
+            Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+          </p>
+        </section>
+
+        {/* Contact Information Grid */}
+        <section className="mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {contactInfo.map((info, index) => (
+              <div key={index} className={`rounded-2xl p-6 ${tone.panel} text-center`}>
+                <info.icon className="h-8 w-8 mx-auto mb-4 text-primary" />
+                <h3 className="font-semibold text-lg mb-2">{info.title}</h3>
+                <p className={`${tone.muted}`}>{info.value}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Contact Form and Services Section */}
+        <section className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+          {/* Contact Form */}
+          <div className={`rounded-3xl p-8 ${tone.panel}`}>
+            <h2 className="text-3xl font-bold mb-6">Send us a message</h2>
+            <form className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <input
+                  className="h-12 rounded-xl border border-[#ddcdbd] bg-white px-4 text-sm outline-none ring-0 transition focus:border-[#5b2b3b]"
+                  placeholder="First Name"
+                  name="firstName"
+                />
+                <input
+                  className="h-12 rounded-xl border border-[#ddcdbd] bg-white px-4 text-sm outline-none ring-0 transition focus:border-[#5b2b3b]"
+                  placeholder="Last Name"
+                  name="lastName"
+                />
+              </div>
+              <input
+                className="h-12 rounded-xl border border-[#ddcdbd] bg-white px-4 text-sm outline-none ring-0 transition focus:border-[#5b2b3b]"
+                placeholder="Email address"
+                name="email"
+                type="email"
+              />
+              <input
+                className="h-12 rounded-xl border border-[#ddcdbd] bg-white px-4 text-sm outline-none ring-0 transition focus:border-[#5b2b3b]"
+                placeholder="Subject"
+                name="subject"
+              />
+              <textarea
+                className="min-h-[150px] rounded-xl border border-[#ddcdbd] bg-white px-4 py-3 text-sm outline-none ring-0 transition focus:border-[#5b2b3b]"
+                placeholder="Your message"
+                name="message"
+                rows={6}
+              />
+              <button 
+                type="submit" 
+                className="inline-flex h-12 items-center justify-center rounded-full px-8 text-sm font-semibold bg-[#8B4513] text-white hover:bg-[#6B3410] transition-colors"
+              >
+                Send Message
+              </button>
+            </form>
+          </div>
+
+          {/* Services Section */}
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-muted-foreground">Contact {SITE_CONFIG.name}</p>
-            <h1 className="mt-4 max-w-2xl font-[family-name:var(--font-display)] text-4xl font-semibold tracking-[-0.03em] sm:text-5xl">
-              Tell us what you are announcing next.
-            </h1>
-            <p className={`mt-5 max-w-2xl text-sm leading-8 ${tone.muted}`}>
-              Share timelines, audiences, and assets—our desk routes investor relations, product launches, and crisis updates to the right specialists.
-            </p>
-            <div className="mt-8 space-y-4">
-              {lanes.map((lane) => (
-                <div key={lane.title} className={`rounded-[1.6rem] p-5 ${tone.soft}`}>
-                  <lane.icon className="h-5 w-5 text-primary" />
-                  <h2 className="mt-3 text-xl font-semibold">{lane.title}</h2>
-                  <p className={`mt-2 text-sm leading-7 ${tone.muted}`}>{lane.body}</p>
+            <h2 className="text-3xl font-bold mb-6">How can we help?</h2>
+            <div className="space-y-4">
+              {services.map((service, index) => (
+                <div key={index} className={`rounded-2xl p-6 ${tone.soft}`}>
+                  <service.icon className="h-6 w-6 mb-3 text-primary" />
+                  <h3 className="font-semibold text-lg mb-2">{service.title}</h3>
+                  <p className={`${tone.muted}`}>{service.description}</p>
                 </div>
               ))}
             </div>
           </div>
+        </section>
 
-          <div className="space-y-6">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] border border-border shadow-lg">
-              <ContentImage
-                src={CONTACT_SIDE}
-                alt="Team collaborating at a conference table"
-                fill
-                className="object-cover"
-                intrinsicWidth={1200}
-                intrinsicHeight={900}
-              />
-            </div>
-            <div className={`rounded-[2rem] p-7 ${tone.panel}`}>
-              <h2 className="text-2xl font-semibold">Send a message</h2>
-              <form className="mt-6 grid gap-4">
-                <input
-                  className="h-12 rounded-xl border border-input bg-background px-4 text-sm"
-                  placeholder="Your name"
-                  name="name"
-                  autoComplete="name"
-                />
-                <input
-                  className="h-12 rounded-xl border border-input bg-background px-4 text-sm"
-                  placeholder="Email address"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                />
-                <input
-                  className="h-12 rounded-xl border border-input bg-background px-4 text-sm"
-                  placeholder="Organization"
-                  name="org"
-                />
-                <textarea
-                  className="min-h-[180px] rounded-2xl border border-input bg-background px-4 py-3 text-sm"
-                  placeholder="Tell us about your release window, markets, and compliance needs."
-                  name="message"
-                />
-                <button type="submit" className={`inline-flex h-12 items-center justify-center rounded-full px-6 text-sm font-semibold ${tone.action}`}>
-                  Send message
-                </button>
-              </form>
-            </div>
+        {/* Additional Information Section */}
+        <section className={`rounded-3xl p-8 ${tone.panel} text-center`}>
+          <h2 className="text-2xl font-bold mb-4">Need immediate assistance?</h2>
+          <p className={`${tone.muted} mb-6`}>
+            Our support team is available Monday through Friday, 9AM to 6PM PST. 
+            We typically respond to inquiries within 24 hours.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button className="inline-flex h-12 items-center justify-center rounded-full px-8 text-sm font-semibold bg-[#8B4513] text-white hover:bg-[#6B3410] transition-colors">
+              Call Now
+            </button>
+            <button className={`inline-flex h-12 items-center justify-center rounded-full px-8 text-sm font-semibold border-2 border-[#8B4513] text-[#8B4513] hover:bg-[#8B4513] hover:text-white transition-colors`}>
+              Schedule Call
+            </button>
           </div>
         </section>
       </main>
