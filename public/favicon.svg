@@ -1,0 +1,20 @@
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="32" height="32" rx="6" ry="6" fill="white" stroke="#e8d5ff" stroke-width="0.5"/>
+  
+  <!-- SP Monogram simplified -->
+  <defs>
+    <linearGradient id="purpleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7c3aed;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#5c24ff;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- SP letters -->
+  <g transform="translate(6, 8) scale(0.4)">
+    <!-- S shape -->
+    <path d="M8 5 Q15 2, 22 5 L22 12 Q15 9, 8 12 L8 18 Q15 15, 22 18 L22 25 Q15 22, 8 25 Z" fill="url(#purpleGradient)"/>
+    <!-- P shape -->
+    <path d="M28 5 L28 30 Q35 30, 38 24 Q41 18, 38 12 Q35 6, 28 5 Z" fill="url(#purpleGradient)"/>
+  </g>
+</svg>

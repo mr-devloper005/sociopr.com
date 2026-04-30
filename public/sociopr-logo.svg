@@ -1,0 +1,26 @@
+<svg width="200" height="60" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background rounded rectangle -->
+  <rect x="2" y="2" width="196" height="56" rx="12" ry="12" fill="white" stroke="#e8d5ff" stroke-width="1"/>
+  
+  <!-- SP Monogram with gradient -->
+  <defs>
+    <linearGradient id="purpleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7c3aed;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#5c24ff;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- SP Monogram -->
+  <g transform="translate(15, 15)">
+    <!-- S shape -->
+    <path d="M8 5 Q15 2, 22 5 L22 12 Q15 9, 8 12 L8 18 Q15 15, 22 18 L22 25 Q15 22, 8 25 Z" fill="url(#purpleGradient)"/>
+    <!-- P shape -->
+    <path d="M28 5 L28 30 Q35 30, 38 24 Q41 18, 38 12 Q35 6, 28 5 Z" fill="url(#purpleGradient)"/>
+  </g>
+  
+  <!-- SOCIOPR.COM text -->
+  <text x="65" y="28" font-family="Georgia, serif" font-size="18" font-weight="700" fill="#1a1a1a">SOCIOPR.COM</text>
+  
+  <!-- PR DISTRIBUTION PLATFORM text -->
+  <text x="65" y="42" font-family="Arial, sans-serif" font-size="9" font-weight="400" fill="#7c3aed">PR DISTRIBUTION PLATFORM</text>
+</svg>
