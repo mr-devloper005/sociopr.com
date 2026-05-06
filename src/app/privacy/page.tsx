@@ -9,18 +9,18 @@ const sections = [
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen bg-[#f5f2ff] text-[#261811]">
+    <div className="min-h-screen bg-white text-neutral-900">
       <PageShell
         title="Privacy Policy"
         description="How we collect, use, and protect your information."
       >
-        <div className="border border-[#ddcdbd] bg-[#fffaf4] shadow-[0_24px_60px_rgba(91,56,37,0.08)] rounded-[2rem]">
+        <div className="rounded border border-neutral-200 bg-white shadow-sm">
           <div className="p-6 space-y-4">
-            <p className="text-xs text-[#71574a]">Last updated: March 16, 2026</p>
+            <p className="text-xs text-neutral-500">Last updated: March 16, 2026</p>
             {sections.map((section) => (
-              <div key={section.title} className="rounded-lg border border-[#e8dbce] bg-[#f3e8db] p-4">
-                <h3 className="text-sm font-semibold text-[#261811]">{section.title}</h3>
-                <p className="mt-2 text-sm text-[#71574a]">{section.body}</p>
+              <div key={section.title} className="rounded border border-neutral-200 bg-neutral-50 p-4">
+                <h3 className="text-sm font-semibold text-neutral-900">{section.title}</h3>
+                <p className="mt-2 text-sm text-neutral-600">{section.body}</p>
               </div>
             ))}
           </div>

@@ -754,15 +754,15 @@ export const mockDashboardStats: DashboardStats = {
 export const mockTeamMembers: TeamMember[] = [
   {
     id: 'team-1',
-    name: 'Avery Brooks',
+    name: 'James Whitfield',
     role: 'Head of Community',
-    avatar: 'https://images.unsplash.com/photo-1544723795-3fb6469f5b39?w=200&h=200&fit=crop',
+    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop',
     bio: 'Building programs that connect creators with meaningful collaborations.',
     location: 'Austin, TX'
   },
   {
     id: 'team-2',
-    name: 'Jordan Lee',
+    name: 'Daniel Carter',
     role: 'Product Lead',
     avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop',
     bio: 'Designing calm, curated experiences for modern teams.',
@@ -770,9 +770,9 @@ export const mockTeamMembers: TeamMember[] = [
   },
   {
     id: 'team-3',
-    name: 'Priya Desai',
+    name: 'Oliver Bennett',
     role: 'Engineering',
-    avatar: 'https://images.unsplash.com/photo-1544723795-3fb6469f5b39?w=200&h=200&fit=crop',
+    avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop',
     bio: 'Focused on reliability, search, and delightful performance.',
     location: 'New York, NY'
   }

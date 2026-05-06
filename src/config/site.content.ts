@@ -23,7 +23,7 @@ export const siteContent = {
     description:
       'SocioPR.com presents your releases with wire-style hierarchy, strong typography, and distribution cues that feel credible—not like another generic blog template.',
     primaryCta: {
-      label: 'Browse press releases',
+      label: 'Browse press media',
       href: '/updates',
     },
     secondaryCta: {
@@ -39,14 +39,14 @@ export const siteContent = {
   },
   home: {
     metadata: {
-      title: 'SocioPR.com — Press releases & media distribution',
+      title: 'SocioPR.com — Press media & media distribution',
       description:
-        'Browse official press releases, company news, and desk coverage from SocioPR.com. Filter by topic, search headlines, and read full releases in a clean wire layout.',
-      openGraphTitle: 'SocioPR.com — Press releases & media distribution',
+        'Browse official press media, company news, and desk coverage from SocioPR.com. Filter by topic, search headlines, and read full releases in a clean wire layout.',
+      openGraphTitle: 'SocioPR.com — Press media & media distribution',
       openGraphDescription:
-        'Wire-style press releases, searchable archives, and premium reading layouts for teams that care about clarity and reach.',
+        'Wire-style press media, searchable archives, and premium reading layouts for teams that care about clarity and reach.',
       keywords: [
-        'press releases',
+        'press media',
         'media wire',
         'PR distribution',
         'SocioPR',
@@ -197,7 +197,7 @@ export const taskPageMetadata: Record<Exclude<TaskKey, 'comment' | 'org' | 'soci
   },
   mediaDistribution: {
     title: 'Press room',
-    description: 'Search and filter official press releases filed on SocioPR.com.',
+    description: 'Search and filter official press media filed on SocioPR.com.',
   },
 }
 
@@ -217,7 +217,7 @@ export const taskIntroCopy: Record<
       'Use this lane for stories that need more room than a standard filing.',
     ],
     links: [
-      { label: 'Press releases', href: '/updates' },
+      { label: 'Press media', href: '/updates' },
       { label: 'Pricing', href: '/pricing' },
     ],
   },
