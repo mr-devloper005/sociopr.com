@@ -273,7 +273,7 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
             {isArticleLayout ? (
               <div className="mx-auto w-full max-w-4xl space-y-6">
                 <p className="text-xs font-semibold uppercase tracking-[0.28em] text-muted-foreground">
-                  {task === "mediaDistribution" ? "Press release" : "Article"}
+                  {task === "mediaDistribution" ? "Press media" : "Article"}
                 </p>
                 <h1 className="font-[family-name:var(--font-display)] text-4xl font-semibold leading-[1.1] tracking-[-0.03em] text-foreground sm:text-[2.75rem]">
                   {post.title}

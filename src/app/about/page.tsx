@@ -68,9 +68,7 @@ export default function AboutPage() {
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
-                <Button variant="outline" asChild className="rounded-full border-[#d8cffd] bg-white text-[#3f2f79] hover:bg-[#f3efff]">
-                  <Link href="/pricing">View pricing</Link>
-                </Button>
+
               </div>
             </div>
 
@@ -162,9 +160,6 @@ export default function AboutPage() {
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#7a69b3]">Our team</p>
               <h2 className="mt-2 text-3xl font-semibold">People behind the platform</h2>
             </div>
-            <Button variant="outline" asChild className="hidden rounded-full border-[#d8cffd] bg-white text-[#3f2f79] hover:bg-[#f3efff] md:inline-flex">
-              <Link href="/team">Meet all members</Link>
-            </Button>
           </div>
           <div className="mt-6 grid gap-6 md:grid-cols-3">
             {mockTeamMembers.map((member) => (

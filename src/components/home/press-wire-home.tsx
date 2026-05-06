@@ -46,7 +46,7 @@ function getPostCategory(post: SitePost): string {
   if (typeof cat === 'string' && cat.trim()) return cat.trim()
   const tag = post.tags?.find((t) => typeof t === 'string' && t !== 'mediaDistribution' && t !== 'article')
   if (typeof tag === 'string') return tag
-  return 'Press release'
+  return 'Press media'
 }
 
 export function PressWireHome({
@@ -74,22 +74,22 @@ export function PressWireHome({
   const newsroom = posts.slice(12, 15)
   const testimonials = [
     {
-      name: 'Aaryan M.',
+      name: 'James Whitfield',
       role: 'Founder, B2B SaaS',
       quote: 'We moved from scattered launches to a repeatable PR flow with predictable coverage.',
     },
     {
-      name: 'Priya K.',
+      name: 'Sarah Mitchell',
       role: 'Marketing Lead, D2C',
       quote: 'The distribution quality and editorial checks made our campaigns feel more premium.',
     },
     {
-      name: 'Nikhil R.',
+      name: 'Daniel Carter',
       role: 'Growth Manager, Fintech',
       quote: 'Turnaround time is fast and the updates dashboard keeps the whole team aligned.',
     },
     {
-      name: 'Rhea S.',
+      name: 'Emma Reynolds',
       role: 'Comms Head, Startup Studio',
       quote: 'The newsroom-style publishing format helps us ship announcements with confidence.',
     },
@@ -110,7 +110,7 @@ export function PressWireHome({
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#6a4cff]">PRfire</p>
               <h1 className="mt-3 max-w-2xl text-4xl font-black leading-tight sm:text-5xl">
-                UK&apos;s #1 Press Release Distribution Service
+                UK&apos;s #1 Press Media Distribution Service
               </h1>
               <p className="mt-4 max-w-xl text-base leading-7 text-[#4b3f70]">
                 Reach journalists, publishers, and search audiences with high-impact distribution and newsroom-ready content packaging.
@@ -126,7 +126,7 @@ export function PressWireHome({
                   href={primaryTask?.route || '/updates'}
                   className="inline-flex items-center gap-2 rounded-full bg-[#5c24ff] px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(92,36,255,0.32)] transition hover:bg-[#4b1cdb]"
                 >
-                  View Pricing
+                  View Updates
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link
@@ -201,7 +201,7 @@ export function PressWireHome({
               ))}
             </ul>
             <div className="mt-6 flex flex-wrap gap-3">
-              <Link href="/pricing" className="rounded-full bg-[#5c24ff] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#4b1cdb]">Get Started</Link>
+              <Link href="/contact" className="rounded-full bg-[#5c24ff] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#4b1cdb]">Get Started</Link>
               <Link href="/contact" className="rounded-full border border-[#d9d0ff] bg-white px-5 py-2.5 text-sm font-semibold text-[#5c24ff] hover:bg-[#f5f0ff]">Talk to Team</Link>
             </div>
           </div>
