@@ -18,7 +18,6 @@ const utilityLinks = [
 const primaryLinks = [
   { label: 'Home', href: '/' },
   { label: 'Updates', href: '/updates' },
-  { label: 'Pricing', href: '/pricing' },
   { label: 'Contact', href: '/contact' },
 ]
 

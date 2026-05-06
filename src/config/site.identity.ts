@@ -4,7 +4,7 @@ export const siteIdentity = {
   tagline: process.env.NEXT_PUBLIC_SITE_TAGLINE || 'Global press distribution for modern teams',
   description:
     process.env.NEXT_PUBLIC_SITE_DESCRIPTION ||
-    'SocioPR.com is a media desk for distributing press releases, company news, and investor-ready announcements with a clean, wire-style reading experience.',
+    'SocioPR.com is a media desk for distributing press media, company news, and investor-ready announcements with a clean, wire-style reading experience.',
   domain: process.env.NEXT_PUBLIC_SITE_DOMAIN || 'sociopr.com',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://sociopr.com',
   ogImage: process.env.NEXT_PUBLIC_SITE_OG_IMAGE || '/og-default.png',
