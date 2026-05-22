@@ -1,6 +1,4 @@
-﻿'use client'
-
-import type { ReactNode } from 'react'
+﻿import type { ReactNode } from 'react'
 import { NavbarShell } from '@/components/shared/navbar-shell'
 import { Footer } from '@/components/shared/footer'
 
