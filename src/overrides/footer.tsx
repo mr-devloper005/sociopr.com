@@ -30,19 +30,21 @@ export async function FooterOverride() {
   ).slice(0, 8)
 
   return (
-    <footer className="border-t border-neutral-200 bg-white">
-      <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-10 text-sm text-neutral-600 sm:px-6 md:flex-row md:items-center md:justify-between">
-        <p>&copy; {new Date().getFullYear()} {SITE_CONFIG.name}. All rights reserved.</p>
-        <div className="flex flex-wrap gap-4">
-          <Link href="/about">About</Link>
-          <Link href="/contact">Contact</Link>
-          <Link href="/privacy">Privacy</Link>
-          <Link href="/terms">Terms</Link>
+    <footer className="mt-auto border-t border-neutral-200 bg-white">
+      <div className="mx-auto max-w-6xl px-4 py-8 text-sm text-neutral-600 sm:px-6">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <p>&copy; {new Date().getFullYear()} {SITE_CONFIG.name}. All rights reserved.</p>
+          <div className="flex flex-wrap gap-4">
+            <Link href="/about">About</Link>
+            <Link href="/contact">Contact</Link>
+            <Link href="/privacy">Privacy</Link>
+            <Link href="/terms">Terms</Link>
+          </div>
         </div>
 
         {categories.length ? (
-          <div className="mt-8 border-t border-current/10 pt-6">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] opacity-70">Categories</p>
+          <div className="mt-6 border-t border-neutral-100 pt-6">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-400">Categories</p>
             <div className="mt-3 flex flex-wrap gap-3 text-sm">
               {categories.map((category) => (
                 <Link
@@ -56,7 +58,6 @@ export async function FooterOverride() {
             </div>
           </div>
         ) : null}
-
       </div>
     </footer>
   )
