@@ -42,12 +42,8 @@ export function NavbarOverride() {
       <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
         <div className="rounded-2xl border border-[#e7e1ff] bg-white px-4 py-4 shadow-[0_8px_24px_rgba(64,38,140,0.08)]">
           <div className="flex items-center justify-between lg:hidden">
-            <Link
-              href="/"
-              className="text-2xl font-black uppercase tracking-[0.12em] text-[#1c1240]"
-              style={{ fontFamily: 'Georgia, Times New Roman, serif' }}
-            >
-              {SITE_CONFIG.name}
+            <Link href="/">
+              <img src="/logo.png" alt={SITE_CONFIG.name} className="h-10 w-auto object-contain" />
             </Link>
             <button
               type="button"
@@ -106,12 +102,8 @@ export function NavbarOverride() {
           ) : null}
 
           <div className="hidden lg:flex lg:items-center lg:justify-between lg:gap-6">
-            <Link
-              href="/"
-              className="text-left text-4xl font-black uppercase tracking-[0.14em] text-[#1c1240]"
-              style={{ fontFamily: 'Georgia, Times New Roman, serif' }}
-            >
-              {SITE_CONFIG.name}
+            <Link href="/">
+              <img src="/logo.png" alt={SITE_CONFIG.name} className="h-10 w-auto object-contain" />
             </Link>
 
             <nav className="flex flex-wrap items-center justify-center gap-2 text-sm font-semibold uppercase tracking-[0.12em]">
